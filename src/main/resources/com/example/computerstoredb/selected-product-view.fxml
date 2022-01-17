@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.computerstoredb.Controller.SelectedProductController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="576.0" prefWidth="512.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#toProducts" text="Back">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="285.0" prefWidth="329.0">
+                     <children>
+                        <ImageView fx:id="img" fitHeight="284.0" fitWidth="319.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/intel-core-i5-11400f.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="576.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label fx:id="nameLabel" text="Intel Core i5 11400F" wrapText="true">
+                           <font>
+                              <Font name="Verdana Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="252.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Label text="Quantity:">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#decreaseQuantity" prefHeight="28.0" prefWidth="31.0" text="-">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <TextField fx:id="quantityField" alignment="CENTER" prefHeight="28.0" prefWidth="38.0" text="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#increaseQuantity" text="+">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="252.0">
+                     <children>
+                        <Label text="Stock left:" textFill="#686868">
+                           <HBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="stockLabel" text="10000" textFill="#686868" wrapText="true">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="12.0" prefWidth="512.0">
+                     <children>
+                        <Label text="Subtotal:">
+                           <font>
+                              <Font name="Verdana Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="priceLabel" text="Rp. 2300000">
+                           <font>
+                              <Font name="Verdana Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="252.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#addToCart" prefHeight="38.0" prefWidth="212.0" text="Add to Cart">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="252.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#buyNow" prefHeight="38.0" prefWidth="212.0" text="Buy Now">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
