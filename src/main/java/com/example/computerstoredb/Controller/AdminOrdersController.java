@@ -108,7 +108,7 @@ public class AdminOrdersController implements Initializable {
                         if (adminHistoryTableView.getSelectionModel().isEmpty()) {
                             return;
                         } else {
-                            Orders.getInstance().setCartId(adminHistoryTableView.getSelectionModel().getSelectedItem().getCustomerId());
+                            Orders.getInstance().setCartId(adminHistoryTableView.getSelectionModel().getSelectedItem().getCartId());
                             Orders.getInstance().setFirstName(adminHistoryTableView.getSelectionModel().getSelectedItem().getFirstName());
                             Orders.getInstance().setLastName(adminHistoryTableView.getSelectionModel().getSelectedItem().getLastName());
                             Orders.getInstance().setOrderDate(adminHistoryTableView.getSelectionModel().getSelectedItem().getOrderDate());

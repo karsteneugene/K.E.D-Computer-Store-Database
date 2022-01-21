@@ -115,33 +115,38 @@ public class AdminProductsController implements Initializable {
         String newName = categoryTextField.getText();
         int selectedId = categoriesListView.getSelectionModel().getSelectedItem().getId();
 
-        String checkQuery = "SELECT name FROM Categories WHERE name = '" + newName + "'";
-
-        Statement checkCategory = connection.createStatement();
-        ResultSet categoryResultSet = checkCategory.executeQuery(checkQuery);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
-        if (categoryResultSet.next()) {
-            alert.setContentText("Category already exists");
+        if (Objects.equals(newName, "")) {
+            alert.setContentText("Do not leave the field blank!");
             alert.showAndWait();
         } else {
-            String updateQuery = "UPDATE Categories SET name = ? WHERE id = ?";
+            String checkQuery = "SELECT name FROM Categories WHERE name = '" + newName + "'";
 
-            PreparedStatement updateCategory = connection.prepareStatement(updateQuery);
-            updateCategory.setString(1, newName);
-            updateCategory.setInt(2, selectedId);
+            Statement checkCategory = connection.createStatement();
+            ResultSet categoryResultSet = checkCategory.executeQuery(checkQuery);
 
-            int updateStatus = updateCategory.executeUpdate();
-            if (updateStatus == 0) {
-                alert.setContentText("Something went wrong");
+            if (categoryResultSet.next()) {
+                alert.setContentText("Category already exists");
                 alert.showAndWait();
             } else {
-                alert.setContentText("Category successfully updated!");
-                alert.showAndWait();
+                String updateQuery = "UPDATE Categories SET name = ? WHERE id = ?";
 
-                navigation.toAdminProducts(event);
+                PreparedStatement updateCategory = connection.prepareStatement(updateQuery);
+                updateCategory.setString(1, newName);
+                updateCategory.setInt(2, selectedId);
+
+                int updateStatus = updateCategory.executeUpdate();
+                if (updateStatus == 0) {
+                    alert.setContentText("Something went wrong");
+                    alert.showAndWait();
+                } else {
+                    alert.setContentText("Category successfully updated!");
+                    alert.showAndWait();
+
+                    navigation.toAdminProducts(event);
+                }
             }
         }
     }
@@ -149,24 +154,35 @@ public class AdminProductsController implements Initializable {
     public void deleteCategory(ActionEvent event) throws SQLException, IOException {
         int selectedId = categoriesListView.getSelectionModel().getSelectedItem().getId();
 
-        String deleteQuery = "DELETE FROM Categories WHERE id = ?";
+        String checkProductsQuery = "SELECT * FROM Products WHERE categories_id = " + selectedId;
 
-        PreparedStatement deleteCategory;
-        deleteCategory = connection.prepareStatement(deleteQuery);
-        deleteCategory.setInt(1, selectedId);
-        int deleteStatus = deleteCategory.executeUpdate();
+        Statement statement = connection.createStatement();
+        ResultSet productsResultSet = statement.executeQuery(checkProductsQuery);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
-        if (deleteStatus == 0) {
-            alert.setContentText("Something went wrong");
+        if (productsResultSet.next()) {
+            alert.setContentText("Cannot delete category as it contains products");
             alert.showAndWait();
         } else {
-            alert.setContentText("Category successfully deleted!");
-            alert.showAndWait();
 
-            navigation.toAdminProducts(event);
+            String deleteQuery = "DELETE FROM Categories WHERE id = ?";
+
+            PreparedStatement deleteCategory;
+            deleteCategory = connection.prepareStatement(deleteQuery);
+            deleteCategory.setInt(1, selectedId);
+            int deleteStatus = deleteCategory.executeUpdate();
+
+            if (deleteStatus == 0) {
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+            } else {
+                alert.setContentText("Category successfully deleted!");
+                alert.showAndWait();
+
+                navigation.toAdminProducts(event);
+            }
         }
     }
 
@@ -199,10 +215,10 @@ public class AdminProductsController implements Initializable {
         productsTableView.getColumns().get(0).setVisible(true);
     }
 
-    public void deleteProduct() throws SQLException {
+    public void removeProductStock() throws SQLException {
         Products product = productsTableView.getSelectionModel().getSelectedItem();
 
-        String deleteQuery = "DELETE FROM Products WHERE id = ?";
+        String deleteQuery = "UPDATE Products SET stock = 0 WHERE id = ?";
 
         PreparedStatement deleteProduct = connection.prepareStatement(deleteQuery);
         deleteProduct.setInt(1, product.getId());
@@ -215,7 +231,7 @@ public class AdminProductsController implements Initializable {
             alert.setContentText("Something went wrong!");
             alert.showAndWait();
         } else {
-            products.remove(product);
+            product.setStock(0);
         }
         productsTableView.getColumns().get(0).setVisible(false);
         productsTableView.getColumns().get(0).setVisible(true);
